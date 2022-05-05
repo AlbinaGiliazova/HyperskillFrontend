@@ -1,0 +1,153 @@
+// Use "input()" to input a line from the user
+// Use "input(str)" to print some text before requesting input
+// You will need this in the following stages
+const input = require('sync-input');
+let gotWater = 400;
+let gotMilk = 540;
+let gotCoffee = 120;
+let gotCups = 9;
+let gotMoney = 550;
+
+function showStock() {
+console.log(`The coffee machine has:
+${gotWater} ml of water
+${gotMilk} ml of milk
+${gotCoffee} g of coffee beans
+${gotCups} disposable cups
+\$${gotMoney} of money`);
+}
+
+function chooseAction() {
+  while (true) {
+    console.log(`\nWrite action (buy, fill, take, remaining, exit):`);
+    let userAction = input();
+    let exitFlag = false;
+
+    switch (userAction) {
+      case "buy":
+        buyCoffee();
+        break;
+      case "fill":
+        fillIngredients();
+        break;
+      case "take":
+        giveMoney();
+        break;
+      case "remaining":
+        showStock();
+        break;
+      case "exit":
+        exitFlag = true;
+        break;        
+    }    
+    
+    if (exitFlag) {
+      break;
+    }
+  }
+}
+
+function buyCoffee() {
+  console.log("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+  let userCoffee = input();
+  let needWater, needMilk, needCoffee, needMoney;
+  
+  switch (userCoffee) {
+    case "1":
+      needWater = 250;
+      needMilk = 0;
+      needCoffee = 16;
+      needMoney = 4;
+      break;
+    case "2":
+      needWater = 350;
+      needMilk = 75;
+      needCoffee = 20;
+      needMoney = 7;
+      break;     
+    case "3":
+      needWater = 200;
+      needMilk = 100;
+      needCoffee = 12;
+      needMoney = 6;
+      break;  
+    case "back":
+      return;       
+  }
+  
+  if (gotWater < needWater) {
+    console.log("Sorry, not enough water!");
+    return;
+  } else if (gotMilk < needMilk) {
+    console.log("Sorry, not enough milk!");
+    return;
+  } else if (gotCoffee < needCoffee) {
+    console.log("Sorry, not enough coffee beans!");
+    return;
+  } else if (gotCups < 1) {
+    console.log("Sorry, not enough cups!");
+    return;
+  } else {
+    console.log('I have enough resources, making you a coffee!');
+  }
+  
+  gotWater -= needWater;
+  gotMilk -= needMilk;
+  gotCoffee -= needCoffee;
+  gotCups -= 1;
+  gotMoney += needMoney;
+}
+
+function fillIngredients() {
+  console.log("Write how many ml of water you want to add:");
+  let water = Number(input());
+  console.log("Write how many ml of milk you want to add:");
+  let milk = Number(input());
+  console.log("Write how many grams of coffee beans you want to add:");
+  let coffee = Number(input());
+  console.log("Write how many disposable coffee cups you want to add:"); 
+  let cups = Number(input());
+  
+  gotWater += water;
+  gotMilk += milk;
+  gotCoffee += coffee;
+  gotCups += cups;   
+}
+
+function giveMoney() {
+  console.log(`I gave you \$${gotMoney}`);
+  gotMoney = 0;
+}
+
+/*
+console.log("Write how many ml of water the coffee machine has:");
+let gotWater = input();
+console.log("Write how many ml of milk the coffee machine has:");
+let gotMilk = input();
+console.log("Write how many grams of coffee beans the coffee machine has:");
+let gotCoffee = input();
+console.log("Write how many cups of coffee you will need:");
+let numCups = input();
+let water = 200;
+let milk = 50;
+let coffee = 15;
+let canMake = Math.floor(gotWater / water);
+if (Math.floor(gotMilk / milk) < canMake) {
+  canMake = Math.floor(gotMilk / milk);
+}
+if (Math.floor(gotCoffee / coffee) < canMake) {
+  canMake = Math.floor(gotCoffee / coffee);
+}
+if (canMake < 0) {
+  canMake = 0;
+}
+if (canMake == numCups) {
+  console.log("Yes, I can make that amount of coffee");
+} else if (canMake > numCups) {
+  console.log(`Yes, I can make that amount of coffee (and even ${canMake - numCups} more than that)`);
+} else {
+  console.log(`No, I can make only ${canMake} cups of coffee`);
+}
+*/
+
+chooseAction();
