@@ -1,0 +1,79 @@
+console.log(`Welcome to Currency Converter!
+1 USD equals  1 USD
+1 USD equals  113.5 JPY
+1 USD equals  0.89 EUR
+1 USD equals  74.36 RUB
+1 USD equals  0.75 GBP`);
+const input = require('sync-input');
+while (true) {
+  console.log(`What do you want to do?
+1-Convert currencies 2-Exit program`);
+  let userChoice = input();
+  if (userChoice == 2) {
+    console.log("Have a nice day!");
+    break;
+  } else if (userChoice != 1) {
+    console.log("Unknown input");
+    continue;
+  }
+  const valutes = ['USD', 'JPY', 'EUR', 'RUB', 'GBP'];
+  const courses = [1, 113.5, 0.89, 74.36, 0.75]; 
+  let fromValute, flagFrom, x;
+  while (true) { 
+    console.log("What do you want to convert?");
+    fromValute = input("From: ").toUpperCase();
+    flagFrom = false;
+    for (x in valutes) {
+      if (valutes[x] === fromValute) {
+        flagFrom = true;
+      }
+    }
+    if (flagFrom === false) {
+      console.log(`Unknown currency`);
+      continue;
+    } else {
+      break;
+    }
+  }
+  
+  let userValute, flagTo;
+  while (true) {
+      userValute = input("To: ").toUpperCase();
+      flagTo = false;
+      for (x in valutes) {
+        if (valutes[x] === userValute) {
+          flagTo = true;
+        }
+      }
+      if (flagTo === false) {
+        console.log(`Unknown currency`);
+        continue;
+      } else {
+        break;
+      }
+  } 
+  
+      let userAmount = input("Amount: ");
+      let result;
+      for (x in valutes) {
+          if (valutes[x] === userValute) {
+            break;
+          };
+        } 
+      for (y in valutes) {
+          if (valutes[y] === fromValute) {
+            result = userAmount * courses[x] / courses[y];
+          };
+        }      
+      if (result == undefined) {
+        console.log(`Unknown currency`);
+      } else if (userAmount != Number(userAmount)) {
+        console.log('The amount has to be a number');
+      } else if (userAmount < 1) {
+        console.log('The amount can not be less than 1');
+      } else{
+        console.log(`Result: ${userAmount} ${fromValute} equals ${result.toFixed(4)} ${userValute}`);
+      }
+      
+  
+}
