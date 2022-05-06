@@ -7,4 +7,4 @@ My frontend studies for Hyperskill projects
 03. Chatty bot
    – A simple program to chat with a bot about the age and programming.   
 04. Coffee Machine
-   – A simulator for selling coffee of threee types.
+   – A simulator for selling coffee of three types.
